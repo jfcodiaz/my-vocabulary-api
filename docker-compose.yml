@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker/images/Dockerfile
+      target: dev
+    container_name: ${PROJECT_PREFIX}_php
+    working_dir: /var/www/html
+    volumes:
+      - ./code/:/var/www/html
+  web:
+    image: nginx:alpine
+    container_name: ${PROJECT_PREFIX}_web
+    working_dir: /var/www/html
+    volumes:
+      - ./code/:/var/www/html
+      - ./docker/config/dev/nginx:/etc/nginx/conf.d/
+    ports:
+      - 8080:80
