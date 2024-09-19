@@ -1,0 +1,55 @@
+@startuml
+
+' Define skin and styles
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+' Classes
+class User {
+    +id: int
+    +name: string
+    +email: string
+    +password: string
+}
+
+class Word {
+    +id: int
+    +text: string
+    +type: string
+    +definition: string
+    +example: string
+}
+
+class Text {
+    +id: int
+    +user_id: int
+    +content: text
+    +source: string
+}
+
+class Review {
+    +id: int
+    +word_id: int
+    +review_date: date
+    +proficiency_level: int
+}
+
+class User_Word {
+    +user_id: int
+    +word_id: int
+    +created_at: timestamp
+    +updated_at: timestamp
+}
+
+' Relationships
+User "1" -- "0..*" Text
+User "1" -- "0..*" Review
+User "0..*" -- "0..*" Word : uses >
+Text "0..1" -- "1" User : uploaded by
+Review "0..*" -- "1" Word : reviews >
+
+@enduml
