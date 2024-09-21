@@ -1,0 +1,9 @@
+[user]
+	email = youruser@gmail.com
+	name = Your Name
+
+[safe]
+    directory = /app
+
+[core]
+    editor = vi
