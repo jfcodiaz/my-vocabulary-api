@@ -7,8 +7,11 @@ services:
       dockerfile: docker/images/Dockerfile
       target: dev
     container_name: ${PROJECT_PREFIX}_php
-    working_dir: /var/www/html
+    working_dir: /app
     volumes:
+      - ./:/app
+      - ./docker/config/dev/ssh:/root/.ssh/
+      - ./docker/config/dev/git/.gitconfig:/root/.gitconfig
       - ./code/:/var/www/html
   web:
     image: nginx:alpine
