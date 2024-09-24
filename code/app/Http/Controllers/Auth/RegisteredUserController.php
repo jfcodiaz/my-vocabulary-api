@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+use App\Http\Requests\Auth\LoginRequest;
 class RegisteredUserController extends Controller
 {
     /**
@@ -18,7 +19,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): Response
+    public function store(LoginRequest $request): Response|array
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -36,6 +37,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return response()->noContent();
+        $request->session()->regenerate();
+
+        $token = $user->createToken($user->name)->plainTextToken;
+
+        return [
+            'user' => $user,
+            'token' => $token
+        ];
     }
 }
