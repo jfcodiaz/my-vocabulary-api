@@ -18,8 +18,8 @@ class StoreController extends Controller
 
         // Get the logged-in user
         $user = Auth::user();
-return  response()->json([]);
-dd($user);
+        return response()->json([]);
+        dd($user);
         // Create a new word associated with the logged-in user
         $word = Word::create([
             'word' => $validatedData['word'],
