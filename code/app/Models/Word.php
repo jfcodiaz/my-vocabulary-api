@@ -13,10 +13,6 @@ class Word extends Model
         'text', 'type_word_id', 'definition', 'example', 'base_verb_id', 'present', 'past', 'past_participle'
     ];
 
-    public function type()
-    {
-        return $this->belongsTo(TypeWord::class, 'type_word_id');
-    }
 
     public function baseVerb()
     {
