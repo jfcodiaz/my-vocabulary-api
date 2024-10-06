@@ -20,12 +20,12 @@ class Word extends Model
 
     public function baseVerb()
     {
-        return $this->belongsTo(Word::class, 'base_verb_id');
+        return $this->belongsTo(self::class, 'base_verb_id');
     }
 
     public function conjugations()
     {
-        return $this->hasMany(Word::class, 'base_verb_id');
+        return $this->hasMany(self::class, 'base_verb_id');
     }
 
     public function users()

@@ -13,5 +13,9 @@
             "username": "root",
             "database": "mysql"
         }
-    ]
+    ],
+    "phpSniffer.run": "onSave",
+    "phpSniffer.autoDetect": true,
+    "phpSniffer.standard": "${workspaceFolder}/code/phpcs.xml.dist",
+
 }
