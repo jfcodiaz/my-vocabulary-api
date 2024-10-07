@@ -6,6 +6,7 @@ use OpenApi\Annotations as OA;
 use App\Models\ConjugationType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ConjugationTypeResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * @OA\Get(
@@ -34,12 +35,7 @@ use App\Http\Resources\ConjugationTypeResource;
  */
 class ConjugationTypeController extends Controller
 {
-    /**
-     * Get a list of conjugation types with their examples.
-     *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
-     */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $conjugationTypes = ConjugationType::with('examples')->get();
         return ConjugationTypeResource::collection($conjugationTypes);

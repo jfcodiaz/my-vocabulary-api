@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev \
     libxml2-dev \
     locales \
+    openssh-client \
     unzip \
     vim \
     zip \
@@ -35,14 +36,20 @@ EXPOSE 9000
 
 FROM base AS dev
 
-RUN composer global require laravel/installer
 ENV PATH="$PATH:/root/.composer/vendor/bin"
-# Instala Xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug \
-# Configurar Xdebug para cobertura en el archivo php.ini
+RUN \
+    # Install Laravel CLI, PHP_CodeSniffer and Xdebug
+    composer global require laravel/installer \
+    # Install PHP_CodeSniffer
+    && composer global require "squizlabs/php_codesniffer=*"  \
+    # Install PHPUnit
+    && composer global require phpunit/phpunit \
+    # Install Xdebug
+    && pecl install xdebug && docker-php-ext-enable xdebug \
+    #
+    # Configure Xdebug for coverage in the php.ini file
     && echo "xdebug.mode = coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.start_with_request = no" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
 
 FROM base AS prod
 USER user

@@ -6,9 +6,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @OA\Schema(
- *     schema="ConjugationTypeExampleResource",
+ *     schema="ConjugationTypeExample",
  *     type="object",
- *     title="Conjugation Type Example Resource",
+ *     title="ConjugationTypeExample",
  *     @OA\Property(
  *         property="id",
  *         type="integer",

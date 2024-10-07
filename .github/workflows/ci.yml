@@ -88,9 +88,17 @@ jobs:
         working-directory: ./code
         run: php artisan key:generate
 
-      - name: Run migrations
+      - name: Run Migrations
         working-directory: ./code
-        run: php artisan migrate --force
+        run: php artisan migrate
+
+      - name: Rollback Migrations
+        working-directory: ./code
+        run: php artisan migrate:rollback
+
+      - name: Re-run Migrations
+        working-directory: ./code
+        run: php artisan migrate
 
       - name: Run PHPUnit with coverage
         working-directory: ./code

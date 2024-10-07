@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -19,7 +20,7 @@ class AuthenticatedSessionController extends Controller
      *       required=true,
      *       @OA\JsonContent(
      *          required={"email","password"},
-     *          @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *          @OA\Property(property="email", type="string", format="email", example="user@serv.com"),
      *          @OA\Property(property="password", type="string", format="password", example="password"),
      *      ),
      *     ),
@@ -36,12 +37,12 @@ class AuthenticatedSessionController extends Controller
      *     )
      * )
      */
-    public function store(LoginRequest $request): Response|array
+    public function store(LoginRequest $request): Response | array
     {
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        /** @var User $user */
         $user = Auth::user();
 
         $token = $user->createToken($user->name)->plainTextToken;

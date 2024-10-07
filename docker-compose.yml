@@ -8,7 +8,7 @@ services:
       target: dev
     container_name: ${PROJECT_PREFIX}_php
     hostname: ${PROJECT_PREFIX}_php
-    working_dir: /app
+    working_dir: /app/code
     volumes:
       - ./:/app
       - ./docker/config/dev/ssh:/root/.ssh/

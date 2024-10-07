@@ -29,7 +29,8 @@ class UserWord {
 
 class Word {
     +bigint id
-    +String text
+    +String word
+    +bigint word_type_id
     +timestamp created_at
     +timestamp updated_at
 }
