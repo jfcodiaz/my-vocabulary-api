@@ -9,8 +9,7 @@ return new class extends Migration {
     {
         Schema::create('words', function (Blueprint $table) {
             $table->id();
-            $table->string('text');
-            $table->string('type');
+            $table->string('word');
             $table->text('definition')->nullable();
             $table->text('example')->nullable();
             $table->timestamps();

@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Verifica que se haya proporcionado un nombre de usuario
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+USERNAME=$1
+
+# Ruta base del proyecto Laravel
+BASE_DIR="code"
+
+# Directorios principales a cambiar
+DIRECTORIES=(../.github database/migrations app config public resources routes storage bootstrap)
+
+# Directorios adicionales fuera de 'code'
+ADDITIONAL_DIRS=("docs")
+
+# Archivos específicos a cambiar
+FILES=(fix-permissions docker-compose.yml)
+
+# Cambiar la propiedad de los archivos dentro de la carpeta 'code'
+echo "Changing ownership of files inside $BASE_DIR..."
+for dir in "${DIRECTORIES[@]}"; do
+    FULL_PATH="$BASE_DIR/$dir"
+    if [ -d "$FULL_PATH" ]; then
+        echo "Changing ownership of $FULL_PATH to $USERNAME:$USERNAME..."
+        chown -R $USERNAME:$USERNAME $FULL_PATH
+    else
+        echo "Directory $FULL_PATH does not exist."
+    fi
+done
+
+# Cambiar la propiedad de directorios adicionales especificados
+for dir in "${ADDITIONAL_DIRS[@]}"; do
+    if [ -d "$dir" ]; then
+        echo "Changing ownership of $dir to $USERNAME:$USERNAME..."
+        chown -R $USERNAME:$USERNAME $dir
+    else
+        echo "Directory $dir does not exist."
+    fi
+done
+
+# Cambiar la propiedad de archivos específicos
+for file in "${FILES[@]}"; do
+    if [ -f "$file" ]; then
+        echo "Changing ownership of $file to $USERNAME:$USERNAME..."
+        chown $USERNAME:$USERNAME $file
+    else
+        echo "File $file does not exist."
+    fi
+done
+
+echo "Permissions fixed."

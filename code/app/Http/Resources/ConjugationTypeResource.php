@@ -4,34 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/**
- * @OA\Schema(
- *     schema="ConjugationTypeResource",
- *     type="object",
- *     title="Conjugation Type Resource",
- *     @OA\Property(
- *         property="id",
- *         type="integer",
- *         description="ID of the conjugation type"
- *     ),
- *     @OA\Property(
- *         property="name",
- *         type="string",
- *         description="Name of the conjugation type"
- *     ),
- *     @OA\Property(
- *         property="description",
- *         type="string",
- *         description="Description of the conjugation type"
- *     ),
- *     @OA\Property(
- *         property="examples",
- *         type="array",
- *         @OA\Items(ref="#/components/schemas/ConjugationTypeExampleResource"),
- *         description="Examples of the conjugation type"
- *     )
- * )
- */
 class ConjugationTypeResource extends JsonResource
 {
     /**
@@ -39,6 +11,32 @@ class ConjugationTypeResource extends JsonResource
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
+     * @OA\Schema(
+     *     schema="ConjugationType",
+     *     type="object",
+     *     title="ConjugationType ",
+     *     @OA\Property(
+     *         property="id",
+     *         type="integer",
+     *         description="ID of the conjugation type"
+     *     ),
+     *     @OA\Property(
+     *         property="name",
+     *         type="string",
+     *         description="Name of the conjugation type"
+     *     ),
+     *     @OA\Property(
+     *         property="description",
+     *         type="string",
+     *         description="Description of the conjugation type"
+     *     ),
+     *     @OA\Property(
+     *         property="examples",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/ConjugationTypeExample"),
+     *         description="Examples of the conjugation type"
+     *     )
+     * )
      */
     public function toArray($request)
     {

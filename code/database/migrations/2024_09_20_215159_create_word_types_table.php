@@ -23,6 +23,13 @@ class CreateWordTypesTable extends Migration
         Schema::table('definitions', function (Blueprint $table) {
             $table->foreignId('word_type_id')->constrained()->onDelete('cascade');
         });
+
+        Schema::table('words', function (Blueprint $table) {
+            $table->foreignId('type_id')->after('word')  // Añade 'type_id' después de la columna 'word'
+                ->constrained('word_types')
+                ->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -35,6 +42,12 @@ class CreateWordTypesTable extends Migration
         Schema::table('definitions', function (Blueprint $table) {
             $table->dropForeign(['word_type_id']);
         });
+
+        Schema::table('words', function (Blueprint $table) {
+            $table->dropForeign(['type_id']);
+            $table->dropColumn('type_id');
+        });
+
         Schema::dropIfExists('word_types');
     }
 }
