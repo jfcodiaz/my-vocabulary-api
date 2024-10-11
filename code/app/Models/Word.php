@@ -10,14 +10,8 @@ class Word extends Model
     use HasFactory;
 
     protected $fillable = [
-        'text', 'type_word_id', 'definition', 'example', 'base_verb_id', 'present', 'past', 'past_participle'
+        'word', 'creator'
     ];
-
-
-    public function baseVerb()
-    {
-        return $this->belongsTo(self::class, 'base_verb_id');
-    }
 
     public function conjugations()
     {
@@ -29,8 +23,4 @@ class Word extends Model
         return $this->belongsToMany(User::class, 'user_word');
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
 }

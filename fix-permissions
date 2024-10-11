@@ -12,7 +12,7 @@ USERNAME=$1
 BASE_DIR="code"
 
 # Directorios principales a cambiar
-DIRECTORIES=(../.github database/migrations app config public resources routes storage bootstrap)
+DIRECTORIES=(../.github database app config public resources routes storage bootstrap)
 
 # Directorios adicionales fuera de 'code'
 ADDITIONAL_DIRS=("docs")

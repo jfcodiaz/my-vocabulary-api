@@ -11,10 +11,10 @@ class WordFactory extends Factory
     public function definition()
     {
         return [
-            'text' => $this->faker->word(),
-            'type' => $this->faker->randomElement(['noun', 'verb', 'adjective']),
-            'definition' => $this->faker->sentence(),
-            'example' => $this->faker->sentence()
+            'word' => $this->faker->unique()->word(),
+            'creator' => \App\Models\User::inRandomOrder()->first()->id,
+            'created_at' => now(),
+            'updated_at' => now()
         ];
     }
 }
