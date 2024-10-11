@@ -25,7 +25,7 @@ class CreateWordTypesTable extends Migration
         });
 
         Schema::table('words', function (Blueprint $table) {
-            $table->foreignId('type_id')->after('word')  // Añade 'type_id' después de la columna 'word'
+            $table->foreignId('type_id')->after('word')
                 ->constrained('word_types')
                 ->onDelete('cascade');
         });

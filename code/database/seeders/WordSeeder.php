@@ -8,6 +8,6 @@ class WordSeeder extends Seeder
 {
     public function run()
     {
-        \App\Models\Word::factory(50)->create(); // Crea 50 palabras
+        \App\Models\Word::factory(50)->create();
     }
 }
