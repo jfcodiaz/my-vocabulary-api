@@ -14,7 +14,7 @@ return new class extends Migration
 
         Schema::table('words', function (Blueprint $table) {
             $table->dropColumn(['type_id', 'definition', 'example']);
-            $table->foreignId('creator')
+            $table->foreignId('creator_id')
                 ->constrained('users')
                 ->onDelete('cascade')
                 ->after('word');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->foreignId('type_id')->after('word')
                 ->constrained('word_types')
                 ->onDelete('cascade');
-            $table->dropForeign(['creator']);
+            $table->dropForeign(['creator_id']);
         });
     }
 };
