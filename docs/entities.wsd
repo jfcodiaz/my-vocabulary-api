@@ -48,7 +48,6 @@ class Review {
     +bigint user_id
     +bigint word_id
     +date review_date
-    +date review_date
     +timestamp created_at
     +timestamp updated_at
 }
@@ -62,7 +61,7 @@ class Text {
     +timestamp updated_at
 }
 
-class  TextType {
+class TextType {
     +bigint id
     +String name
 }
@@ -101,6 +100,14 @@ class WordMedia {
     +timestamp updated_at
 }
 
+class Role {
+    +bigint id
+    +String name
+    +String description
+    +timestamp created_at
+    +timestamp updated_at
+}
+
 Word "1" -- "0..*" Review : has
 Word "1" -- "0..*" Text : texts (is in many)
 User "1" -- "0..*" Text : writes
@@ -114,5 +121,6 @@ Word "1" -- "1..*" Definition : definitions
 WordType "1" -- "1..*" Definition : type
 WordMedia "1" -- "0..*" Media : has
 Word "1" -- "0..*" WordMedia : has
+User "1" -- "0..*" Role : has
 
 @enduml
