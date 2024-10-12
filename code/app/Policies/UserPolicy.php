@@ -73,7 +73,7 @@ class UserPolicy
      * @return mixed
     */
     public function viewEmail(User $user, User $otherUser)
-   {
-       return false; //$user->isAdmin();
-   }
+    {
+        return false; //$user->isAdmin();
+    }
 }

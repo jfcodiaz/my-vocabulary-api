@@ -52,11 +52,11 @@ class CreateWordFailForExistsWordResource extends JsonResource
         return [
             'success' => false,
             'errors' => [
-                'word' =>[
+                'word' => [
                     'Creation failed: "' . $this->resource->word . '" already exists.'
                 ]
             ],
-            'data'=> [
+            'data' => [
                 'word' => new WordResource($this->resource)
             ]
         ];
