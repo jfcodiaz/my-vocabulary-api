@@ -57,13 +57,32 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    /**
+     * Get the roles associated with the user.
+     * @return BelongsToMany
+     */
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
-
+    /**
+     * check if the user has a role.
+     * @param mixed $role
+     *
+     * @return bool
+     */
     public function hasRole($role): bool
     {
         return $this->roles()->where('name', $role)->exists();
+    }
+
+    /**
+     * Determine if the user is an admin.
+     *
+     * @return bool
+     */
+    function isAdmin(): bool
+    {
+        return $this->hasRole(Role::ADMIN);
     }
 }
