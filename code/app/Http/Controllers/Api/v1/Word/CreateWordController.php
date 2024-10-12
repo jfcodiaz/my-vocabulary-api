@@ -15,6 +15,37 @@ class CreateWordController extends Controller
     /**
      * Handles the creation of a new word, ensuring no duplicates.
      *
+     * @OA\Post(
+     *     path="/api/v1/word",
+     *     summary="Create a new word",
+     *     description="Endpoint to create a new word in the vocabulary",
+     *     operationId="createWord",
+     *     tags={"Word"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CreateWordRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Word created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/CreateWordSuccessfullyResource")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity - Validation Error",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorValidationResource")
+     *     ),
+     *     @OA\Response(
+     *         response=409,
+     *         description="Conflict - Word already exists",
+     *         @OA\JsonContent(ref="#/components/schemas/CreateWordFailForExistsWordResource")
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
+     *
      * @param CreateWordRequest $request
      * @param CreateWord $createWord
      *
