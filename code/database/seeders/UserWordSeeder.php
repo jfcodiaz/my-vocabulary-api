@@ -14,8 +14,6 @@ class UserWordSeeder extends Seeder
      */
     public function run(): void
     {
-
-
         $users = User::all();
 
         foreach ($users as $user) {
@@ -26,6 +24,7 @@ class UserWordSeeder extends Seeder
                     'word_id' => $word->id,
                 ]);
             }
+
             $randomWords = Word::where('creator_id', '!=', $user->id)
                 ->inRandomOrder()
                 ->take(rand(5, 15))

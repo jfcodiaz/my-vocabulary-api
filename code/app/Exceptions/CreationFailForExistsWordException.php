@@ -44,4 +44,3 @@ class CreationFailForExistsWordException extends Exception
         return $this->existingWord;
     }
 }
-
