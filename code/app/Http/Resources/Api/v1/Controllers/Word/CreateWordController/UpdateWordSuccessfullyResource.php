@@ -10,6 +10,31 @@ class UpdateWordSuccessfullyResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
+     * @OA\Schema(
+     *     schema="UpdateWordSuccessfullyResource",
+     *     type="object",
+     *     title="Update WordSuccessfullyResource",
+     *     description="Resource returned when a word is updated successfully",
+     *     @OA\Property(
+     *         property="status",
+     *         type="string",
+     *         example="success"
+     *     ),
+     *     @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Word updated successfully"
+     *     ),
+     *     @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         @OA\Property(
+     *             property="word",
+     *             ref="#/components/schemas/WordResource"
+     *         )
+     *     )
+     * )
+     *
      * @param  \Illuminate\Http\Request  $request
      *
      * @return array<string, mixed>

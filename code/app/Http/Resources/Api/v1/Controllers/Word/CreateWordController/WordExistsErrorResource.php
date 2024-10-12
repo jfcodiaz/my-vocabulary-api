@@ -8,9 +8,9 @@ use App\Http\Resources\Api\v1\Models\WordResource;
 
 /**
  * @OA\Schema(
- *     schema="CreateWordFailForExistsWordResource",
+ *     schema="WordExistsErrorResource",
  *     type="object",
- *     title="CreateWordFailForExistsWordResource",
+ *     title="WordExistsErrorResource",
  *     @OA\Property(
  *         property="success",
  *         type="boolean",
@@ -24,7 +24,7 @@ use App\Http\Resources\Api\v1\Models\WordResource;
  *             type="array",
  *             @OA\Items(
  *                 type="string",
- *                 example="Creation failed: 'example' already exists."
+ *                 example="{Creation|Update} failed: 'example' already exists."
  *             )
  *         )
  *     ),
