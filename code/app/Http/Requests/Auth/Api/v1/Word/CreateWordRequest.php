@@ -3,6 +3,21 @@ namespace App\Http\Requests\Auth\Api\v1\Word;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *     schema="CreateWordRequest",
+ *     type="object",
+ *     title="CreateWordRequest",
+ *     description="Request body for creating a new word",
+ *     required={"word"},
+ *     @OA\Property(
+ *         property="word",
+ *         type="string",
+ *         description="The word to be created",
+ *         example="example"
+ *     )
+ * )
+ */
 class CreateWordRequest extends FormRequest
 {
     /**

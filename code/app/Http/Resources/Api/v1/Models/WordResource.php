@@ -4,6 +4,33 @@ namespace App\Http\Resources\Api\v1\Models;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     schema="WordResource",
+ *     type="object",
+ *     title="Word",
+ *     description="WordResource",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         description="ID of the word"
+ *     ),
+ *     @OA\Property(
+ *         property="word",
+ *         type="string",
+ *         description="The word itself"
+ *     ),
+ *     @OA\Property(
+ *         property="creator_id",
+ *         type="integer",
+ *         description="ID of the creator"
+ *     ),
+ *     @OA\Property(
+ *         property="creator",
+ *         ref="#/components/schemas/User"
+ *     )
+ * )
+ */
 class WordResource extends JsonResource
 {
     /**
