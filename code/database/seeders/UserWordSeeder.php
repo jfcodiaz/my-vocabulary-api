@@ -19,14 +19,14 @@ class UserWordSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-            $existingWords = Word::where('creator', $user->id)->get();
+            $existingWords = Word::where('creator_id', $user->id)->get();
             foreach ($existingWords as $word) {
                 UserWord::create([
                     'user_id' => $user->id,
                     'word_id' => $word->id,
                 ]);
             }
-            $randomWords = Word::where('creator', '!=', $user->id)
+            $randomWords = Word::where('creator_id', '!=', $user->id)
                 ->inRandomOrder()
                 ->take(rand(5, 15))
                 ->get();
