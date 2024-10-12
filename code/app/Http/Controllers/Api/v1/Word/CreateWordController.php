@@ -37,7 +37,7 @@ class CreateWordController extends Controller
      *     @OA\Response(
      *         response=409,
      *         description="Conflict - Word already exists",
-     *         @OA\JsonContent(ref="#/components/schemas/CreateWordFailForExistsWordResource")
+     *         @OA\JsonContent(ref="#/components/schemas/WordExistsErrorResource")
      *     ),
      *     @OA\Response(
      *         response=500,

@@ -38,9 +38,9 @@ interface IBaseRepository
      * @param int|string $id
      * @param array $data
      *
-     * @return bool
+     * @return Model|null
      */
-    public function update($id, array $data): bool;
+    public function update($id, array $data): Model|null;
 
     /**
      * Delete a model by its primary key.
@@ -49,7 +49,7 @@ interface IBaseRepository
      *
      * @return bool
      */
-    public function delete($id): bool;
+    public function delete($id): mixed;
 
     /**
      * Save a model instance.
