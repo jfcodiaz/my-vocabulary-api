@@ -5,9 +5,9 @@ namespace App\Service\v1\Word;
 use App\Models\Word;
 use App\DTO\CreateWordData;
 use App\Repositories\WordRepository;
-use App\Exceptions\CreationFailForExistsWordException;
+use App\Exceptions\WordExistsException;
 
-class CreateWord
+class CreateWordService
 {
     /**
      * CreateWord Service constructor.
@@ -23,7 +23,7 @@ class CreateWord
      *
      * @param CreateWordData $data
      *
-     * @throws CreationFailForExistsWordException
+     * @throws WordExistsException
      *
      * @return \App\Models\Word
      */
@@ -31,7 +31,7 @@ class CreateWord
     {
         $existingWord = $this->wordRepository->findWordWithCreator($data->word);
         if ($existingWord) {
-            throw new CreationFailForExistsWordException($existingWord);
+            throw new WordExistsException($existingWord);
         }
 
         $word = $this->wordRepository->create($data->toArray());

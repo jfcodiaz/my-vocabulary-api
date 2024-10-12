@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\v1\Controllers\Word\CreateWordController;
 
+use App\DTO\WordExistsErrorDTO;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\v1\Models\WordResource;
 
@@ -37,8 +38,9 @@ use App\Http\Resources\Api\v1\Models\WordResource;
  *     )
  * )
  */
-class CreateWordFailForExistsWordResource extends JsonResource
+class WordExistsErrorResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -48,16 +50,21 @@ class CreateWordFailForExistsWordResource extends JsonResource
      */
     public function toArray($request)
     {
-        $creator = $this->resource->creator()->first();
+        $creator = $this->resource->word->creator()->first();
+        /**
+         * @var  WordExistsErrorDTO
+         */
+        $resource = $this->resource;
+
         return [
             'success' => false,
             'errors' => [
                 'word' => [
-                    'Creation failed: "' . $this->resource->word . '" already exists.'
+                    "{$resource->operation} failed: \"{$resource->word->word}\" already exists."
                 ]
             ],
             'data' => [
-                'word' => new WordResource($this->resource)
+                'word' => new WordResource($resource->word)
             ]
         ];
     }

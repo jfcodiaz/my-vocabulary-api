@@ -29,4 +29,17 @@ class WordRepository extends BaseRepository implements IWordRepository
     {
         return $this->model->withCreator()->where('word', $word)->first();
     }
+
+
+    /**
+     * Find a word by text.
+     *
+     * @param string $word The word to search for.
+     *
+     * @return Word|null The word if found, otherwise null.
+     */
+    public function findByWordValue(string $word): Word|null
+    {
+        return $this->model->where('word', $word)->first();
+    }
 }

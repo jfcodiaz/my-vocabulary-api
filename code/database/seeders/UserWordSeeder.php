@@ -15,22 +15,22 @@ class UserWordSeeder extends Seeder
     public function run(): void
     {
         $users = User::all();
+        $allWords = Word::all();
 
-        foreach ($users as $user) {
-            $existingWords = Word::where('creator_id', $user->id)->get();
-            foreach ($existingWords as $word) {
-                UserWord::create([
-                    'user_id' => $user->id,
-                    'word_id' => $word->id,
-                ]);
-            }
+        foreach ($allWords as $word) {
+            UserWord::create([
+                'user_id' => $word->creator_id,
+                'word_id' => $word->id,
+            ]);
+        }
 
-            $randomWords = Word::where('creator_id', '!=', $user->id)
-                ->inRandomOrder()
-                ->take(rand(5, 15))
-                ->get();
+        $usersWithoutWords = $users->filter(function ($user) {
+            return Word::where('creator_id', $user->id)->doesntExist();
+        });
 
-            foreach ($randomWords as $word) {
+        foreach ($usersWithoutWords as $user) {
+            for ($i = 0; $i < rand(1, 10); $i++) {
+                $word = Word::inRandomOrder()->first();
                 UserWord::create([
                     'user_id' => $user->id,
                     'word_id' => $word->id,

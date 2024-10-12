@@ -15,9 +15,9 @@ use App\Models\Word;
  *     // Handle the exception, e.g., log the error or notify the user
  * }
  */
-class CreationFailForExistsWordException extends Exception
+class WordExistsException extends Exception
 {
-    const DEFAULT_MESSAGE = 'Creation failed: The word already exists.';
+    const DEFAULT_MESSAGE = 'The word already exists.';
     private $existingWord;
 
     /**

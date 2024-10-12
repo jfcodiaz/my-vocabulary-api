@@ -1,14 +1,13 @@
 <?php
 namespace App\Http\Controllers\Api\v1\Word;
 
-use App\DTO\CreateWordData;
 use Illuminate\Http\JsonResponse;
-use App\Service\v1\Word\CreateWord;
 use App\Http\Controllers\Controller;
-use App\Exceptions\CreationFailForExistsWordException;
+use App\Exceptions\WordExistsException;
+use App\Service\v1\Word\CreateWordService;
+use App\DTO\{ CreateWordData, WordExistsErrorDTO };
 use App\Http\Requests\Auth\Api\v1\Word\CreateWordRequest;
-use App\Http\Resources\Api\v1\Controllers\Word\CreateWordController\CreateWordFailForExistsWordResource;
-use App\Http\Resources\Api\v1\Controllers\Word\CreateWordController\CreateWordSuccessfullyResource;
+use App\Http\Resources\Api\v1\Controllers\Word\CreateWordController\{ CreateWordSuccessfullyResource, WordExistsErrorResource };
 
 class CreateWordController extends Controller
 {
@@ -47,11 +46,11 @@ class CreateWordController extends Controller
      * )
      *
      * @param CreateWordRequest $request
-     * @param CreateWord $createWord
+     * @param CreateWordService $createWord
      *
      * @return JsonResponse
      */
-    public function __invoke(CreateWordRequest $request, CreateWord $createWord): JsonResponse
+    public function __invoke(CreateWordRequest $request, CreateWordService $createWord): JsonResponse
     {
         $validated = $request->validated();
         $user = $request->user();
@@ -60,8 +59,11 @@ class CreateWordController extends Controller
                 'word' => $validated['word'],
                 'creator_id' => $user->id,
             ]));
-        } catch (CreationFailForExistsWordException $e) {
-            return response()->json(new CreateWordFailForExistsWordResource($e->getExistingWord()), 409);
+        } catch (WordExistsException $e) {
+            return response()->json(new WordExistsErrorResource(new WordExistsErrorDTO([
+                'word' => $e->getExistingWord(),
+                'operation' => 'Creation'
+            ])), 409);
         }
 
         return response()->json(new CreateWordSuccessfullyResource($word), 201);
