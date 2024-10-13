@@ -4,7 +4,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/images/Dockerfile
+      dockerfile: docker/images/php/Dockerfile
       target: dev
     container_name: ${PROJECT_PREFIX}_php
     hostname: ${PROJECT_PREFIX}_php
@@ -35,6 +35,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - dbdata:/var/lib/mysql/
+      - ./docker/config/dev/mysql/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./docker/config/dev/mysql/init.sql.template:/docker-entrypoint-initdb.d/init.sql.template
   phpmyadmin:
     image: phpmyadmin
     container_name: ${PROJECT_PREFIX}_phpmyadmin

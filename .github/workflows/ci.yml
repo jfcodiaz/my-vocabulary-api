@@ -53,7 +53,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: my_vocabulary_api
+          MYSQL_DATABASE: my_vocabulary_api_TEST
           MYSQL_USER: user
           MYSQL_PASSWORD: toor
         ports:
@@ -93,18 +93,6 @@ jobs:
       - name: Generate application key
         working-directory: ./code
         run: php artisan key:generate
-
-      - name: Run Migrations
-        working-directory: ./code
-        run: php artisan migrate
-
-      - name: Rollback Migrations
-        working-directory: ./code
-        run: php artisan migrate:rollback
-
-      - name: Re-run Migrations
-        working-directory: ./code
-        run: php artisan migrate
 
       - name: Run PHPUnit with coverage
         working-directory: ./code
