@@ -14,8 +14,10 @@ class CreateWordService
      *
      * @param WordRepository $wordRepository
      */
-    public function __construct(private WordRepository $wordRepository)
-    {
+    public function __construct(
+        private WordRepository $wordRepository,
+        private ValidateWordExistsService $validateWordExists
+    ) {
     }
 
     /**
@@ -29,11 +31,7 @@ class CreateWordService
      */
     public function __invoke(CreateWordData $data): Word
     {
-        $existingWord = $this->wordRepository->findWordWithCreator($data->word);
-        if ($existingWord) {
-            throw new WordExistsException($existingWord);
-        }
-
+        ($this->validateWordExists)($data->word);
         $word = $this->wordRepository->create($data->toArray());
 
         return $word;
