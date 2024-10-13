@@ -1,7 +1,9 @@
 <?php
-
 use Illuminate\Support\Str;
+
 $defaultHost = '127.0.0.1';
+$dbName = env('DB_DATABASE', 'laravel') . (env('APP_ENV') === 'testing' ? '_TEST' : '');
+
 return [
 
     /*
@@ -47,7 +49,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', $defaultHost),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
+            'database' => $dbName,
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -67,7 +69,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', $defaultHost),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
+            'database' => $dbName,
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
