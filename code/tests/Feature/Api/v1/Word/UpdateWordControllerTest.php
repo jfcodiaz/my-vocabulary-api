@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Word;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\TestResponse;
 
 class UpdateWordControllerTest extends TestCase
 {
@@ -31,23 +32,7 @@ class UpdateWordControllerTest extends TestCase
     public function test_update_word_successfully()
     {
         $response = $this->putJson("/api/v1/word/{$this->word->id}", $this->data);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'status' => 'success',
-                'message' => 'Word updated successfully',
-                'data' => [
-                    'word' => [
-                        'id' => $this->word->id,
-                        'word' => 'updatedWord',
-                        'creator_id' => $this->user->id,
-                        'creator' => [
-                            'id' => $this->user->id,
-                            'name' => $this->user->name,
-                        ],
-                    ],
-                ],
-            ]);
+        $this->assertUpdateSuccessfully($response);
         $this->assertDatabaseHas('words', [
             'id' => $this->word->id,
             'word' => $this->data['word'],
@@ -95,7 +80,16 @@ class UpdateWordControllerTest extends TestCase
         $this->logout()->loginAsDefaultAdmin();
 
         $response = $this->putJson("/api/v1/word/{$this->word->id}", $this->data);
+        $this->assertUpdateSuccessfully($response);
+        $this->assertDatabaseHas('words', [
+            'id' => $this->word->id,
+            'word' => $this->data['word'],
+            'creator_id' => $this->user->id,
+        ]);
+    }
 
+    private function assertUpdateSuccessfully(TestResponse $response): self
+    {
         $response->assertStatus(200)
             ->assertJson([
                 'status' => 'success',
@@ -103,7 +97,7 @@ class UpdateWordControllerTest extends TestCase
                 'data' => [
                     'word' => [
                         'id' => $this->word->id,
-                        'word' => 'updatedWord',
+                        'word' => $this->data['word'],
                         'creator_id' => $this->user->id,
                         'creator' => [
                             'id' => $this->user->id,
@@ -112,10 +106,7 @@ class UpdateWordControllerTest extends TestCase
                     ],
                 ],
             ]);
-        $this->assertDatabaseHas('words', [
-            'id' => $this->word->id,
-            'word' => $this->data['word'],
-            'creator_id' => $this->user->id,
-        ]);
+
+        return $this;
     }
 }

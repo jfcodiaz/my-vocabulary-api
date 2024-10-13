@@ -10,5 +10,13 @@ class CreateWordData extends DataTransferObject
     public string $word;
 
     /** @var int The ID of the user creating the word */
-    public int $creator_id;
+    public int $creatorId;
+
+    public function toArray(): array
+    {
+        return [
+            'word' => $this->word,
+            'creator_id' => $this->creatorId
+        ];
+    }
 }

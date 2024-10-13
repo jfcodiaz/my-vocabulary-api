@@ -7,6 +7,12 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRoleUserTable extends Migration
 {
+    private $defaultEmail;
+
+    public function __construct()
+    {
+        $this->defaultEmail = config('app.defaults.users.defaultAdmin');
+    }
     /**
      * Run the migrations.
      *
@@ -35,13 +41,13 @@ class CreateRoleUserTable extends Migration
 
         DB::table('users')->insert([
             'name' => 'Default Admin',
-            'email' => 'admin@serv.com',
+            'email' => $this->defaultEmail,
             'password' => bcrypt('password'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        $adminUserId = DB::table('users')->where('email', 'admin@serv.com')->value('id');
+        $adminUserId = DB::table('users')->where('email', $this->defaultEmail)->value('id');
 
         DB::table('role_user')->insert([
             'user_id' => $adminUserId,
@@ -58,7 +64,8 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        DB::table('users')->where('email', 'admin@serv.com')->delete();
+        $defaultAdminConfig = $this->defaultEmail;
+        DB::table('users')->where('email', $defaultAdminConfig)->delete();
         Schema::dropIfExists('role_user');
     }
 }

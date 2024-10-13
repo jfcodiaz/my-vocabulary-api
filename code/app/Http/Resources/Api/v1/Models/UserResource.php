@@ -45,7 +45,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->when(
-                $user && $user->can('viewEmail', $this->resource),
+                $user && $user->can('viewUsersEmails'),
                 $this->email
             ),
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Word;
 
+use App\Contracts\Repositories\IWordRepository;
 use App\Models\Word;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Controller;
@@ -62,10 +63,9 @@ class DeleteWordController extends Controller
      *
      * @return Response
      */
-    public function __invoke(DeleteWordRequest $request, Word $word)
+    public function __invoke(DeleteWordRequest $request, IWordRepository $wordRepository, Word $word)
     {
-        $word->delete();
-
+        $wordRepository->delete($word);
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }

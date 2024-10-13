@@ -29,7 +29,7 @@ class UserWordSeeder extends Seeder
         });
 
         foreach ($usersWithoutWords as $user) {
-            for ($i = 0; $i < rand(1, 10); $i++) {
+            for ($i = 0; $i < random_int(1, 10); $i++) {
                 $word = Word::inRandomOrder()->first();
                 UserWord::create([
                     'user_id' => $user->id,

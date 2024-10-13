@@ -22,9 +22,6 @@ class UpdateWordService
     public function __invoke(Word $word, string $newWordValue): ?Word
     {
         ($this->validateWordExists)($newWordValue);
-        $word->word = $newWordValue;
-        $this->wordRepository->save($word);
-
-        return $word;
+        return $this->wordRepository->update($word, ['word' => $newWordValue]);
     }
 }

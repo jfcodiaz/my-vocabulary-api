@@ -9,6 +9,8 @@ services:
     container_name: ${PROJECT_PREFIX}_php
     hostname: ${PROJECT_PREFIX}_php
     working_dir: /app/code
+    env_file:
+        - .env
     volumes:
       - ./:/app
       - ./docker/config/dev/ssh:/root/.ssh/

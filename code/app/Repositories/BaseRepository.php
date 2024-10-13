@@ -2,16 +2,22 @@
 
 namespace App\Repositories;
 
+use App\Contracts\Repositories\IBaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseRepository
+class BaseRepository implements IBaseRepository
 {
     protected $model;
 
     public function __construct(Model $model)
     {
         $this->model = $model;
+    }
+
+    public function getModel()
+    {
+        return $this->model;
     }
 
     public function getAll(): Collection
@@ -29,22 +35,31 @@ class BaseRepository
         return $this->model->create($data);
     }
 
-    public function update($id, array $data): Model|null
+    public function update($idOrModel, array $data): Model|null
     {
-        $modelInstance = $this->model->find($id);
+        $modelInstance = $idOrModel;
+
+        if (is_int($idOrModel)) {
+            $modelInstance = $this->model->find($idOrModel);
+        }
+
         if ($modelInstance) {
             $modelInstance->update($data);
+
             return $modelInstance;
         }
 
         return null;
     }
 
-    public function delete($id): mixed
+    public function delete($idOrModel): mixed
     {
-        $modelInstance = $this->model->find($id);
-        if ($modelInstance) {
-            return $modelInstance->delete();
+        if (is_int($idOrModel)) {
+            return $this->model->destroy($idOrModel);
+        }
+
+        if ($idOrModel instanceof Model) {
+            return $idOrModel->delete();
         }
 
         return false;

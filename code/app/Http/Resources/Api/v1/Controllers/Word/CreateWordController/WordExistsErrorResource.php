@@ -50,7 +50,6 @@ class WordExistsErrorResource extends JsonResource
      */
     public function toArray($request)
     {
-        $creator = $this->resource->word->creator()->first();
         /**
          * @var  WordExistsErrorDTO
          */

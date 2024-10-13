@@ -27,7 +27,6 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            ;
             if ($request->is('api/*') && $e->getPrevious() instanceof ModelNotFoundException) {
                 return response()->json([
                     'message' => 'Record not found.'

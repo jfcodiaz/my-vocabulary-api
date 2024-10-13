@@ -32,8 +32,6 @@ class CreateWordService
     public function __invoke(CreateWordData $data): Word
     {
         ($this->validateWordExists)($data->word);
-        $word = $this->wordRepository->create($data->toArray());
-
-        return $word;
+        return $this->wordRepository->create($data->toArray());
     }
 }

@@ -18,9 +18,7 @@ class WordTypeControllerTest extends TestCase
      */
     public function test_can_list_default_word_types(): void
     {
-        // Autenticar al usuario con el correo user@serv.com
-        $user = \App\Models\User::where('email', 'user@serv.com')->first();
-        $this->actingAs($user);
+        $this->loginAsDefaultUser();
         // Hacer una solicitud GET a la ruta que lista los WordTypes
         $response = $this->getJson(route('api.v1.word_types'));
 

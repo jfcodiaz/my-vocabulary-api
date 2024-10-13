@@ -7,7 +7,6 @@ use App\Contracts\Repositories\IWordRepository;
 
 class WordRepository extends BaseRepository implements IWordRepository
 {
-    protected $model;
 
     /**
      * Create a new WordRepository instance.
@@ -16,7 +15,7 @@ class WordRepository extends BaseRepository implements IWordRepository
      */
     public function __construct(Word $model)
     {
-        $this->model = $model;
+        parent::__construct($model);
     }
 
     /**
