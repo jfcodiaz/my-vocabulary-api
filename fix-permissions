@@ -18,7 +18,7 @@ DIRECTORIES=(../.github ../.git database app config public resources routes stor
 ADDITIONAL_DIRS=("docs")
 
 # Archivos específicos a cambiar
-FILES=(fix-permissions docker-compose.yml)
+FILES=(fix-permissions docker-compose.yml code/phpcs.xml.dist)
 
 # Cambiar la propiedad de los archivos dentro de la carpeta 'code'
 echo "Changing ownership of files inside $BASE_DIR..."

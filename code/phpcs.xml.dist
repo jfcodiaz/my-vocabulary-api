@@ -12,6 +12,11 @@
   <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
   <rule ref="Generic.Files.LineEndings" />
   <rule ref="PSR2.Files.EndFileNewline" />
+  <rule ref="Squiz.Scope.MethodScope" />
+  <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+  <rule ref="Squiz.PHP.NonExecutableCode"/>
+  <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
   <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
 
   <rule ref="PSR2.Methods.MethodDeclaration" />

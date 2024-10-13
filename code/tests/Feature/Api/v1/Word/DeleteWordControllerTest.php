@@ -12,7 +12,6 @@ class DeleteWordControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
     protected $word;
     protected $parameters;
 
@@ -20,6 +19,7 @@ class DeleteWordControllerTest extends TestCase
     {
         parent::setUp();
         $user = $this->loginAsDefaultUser();
+        $this->loginAsDefaultUser();
         $this->word = Word::factory()->create([
             'creator_id' => $user->id
         ]);

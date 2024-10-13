@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Collection;
 interface IBaseRepository
 {
     /**
+     * Get the model instance.
+     *
+     * @return Model
+     */
+
+    public function getModel();
+    /**
      * Retrieve all models.
      *
      * @return Collection|Model[]

@@ -33,6 +33,6 @@ class ValidateWordExistsService
         $existingWord = $this->wordRepository->findWordWithCreator($word);
         if ($existingWord) {
             throw new WordExistsException($existingWord);
-        };
+        }
     }
 }

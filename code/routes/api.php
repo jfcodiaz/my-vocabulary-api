@@ -25,7 +25,7 @@ Route::group(
         Route::post('/register', [RegisteredUserController::class, 'store']);
         Route::get('/me', [UserController::class, 'me'])->name('api.v1.user.me');
         Route::get('/conjugation-types', [ConjugationTypeController::class, 'index'])->name('api.v1.conjugation_types');
-        Route::post('/word', CreateWordController::class)->name('api.v1.word.create');
+        Route::post('/word', CreateWordController::class)->name('api.v1.word.store');
         Route::delete('/word/{word}', DeleteWordController::class)->name('api.v1.word.delete');
         Route::put('/word/{word}', UpdateWordController::class)->name('api.v1.word.update');
     }

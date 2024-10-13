@@ -57,7 +57,7 @@ class CreateWordController extends Controller
         try {
             $word = $createWord(new CreateWordData([
                 'word' => $validated['word'],
-                'creator_id' => $user->id,
+                'creatorId' => $user->id,
             ]));
         } catch (WordExistsException $e) {
             return response()->json(new WordExistsErrorResource(new WordExistsErrorDTO([

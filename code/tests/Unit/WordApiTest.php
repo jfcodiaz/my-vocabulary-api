@@ -10,14 +10,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class WordApiTest extends TestCase
 {
+    private User $user;
+    private string $endpoint;
+    private string $defaultUser;
+
     use RefreshDatabase;
 
-    protected $user;
     protected function setUp(): void
     {
         parent::setUp();
-        $this->user = User::where('email', 'user@serv.com')->firstOrFail();
+        $this->defaultUser = config('app.defaults.users.defaultUser');
+        $this->user = User::where('email', $this->defaultUser)->firstOrFail();
+
         $this->actingAs($this->user, 'web');
+        $this->endpoint = route('api.v1.word.store');
     }
 
     public function test_create_word_successfully()
@@ -26,7 +32,7 @@ class WordApiTest extends TestCase
             'word' => $this->faker->word
         ];
 
-        $response = $this->postJson('/api/v1/word', $data);
+        $response = $this->postJson($this->endpoint, $data);
 
         $response->assertStatus(201)
                  ->assertJson([
@@ -49,7 +55,7 @@ class WordApiTest extends TestCase
     public function test_create_word_validation_error()
     {
         $data = [];
-        $response = $this->postJson('/api/v1/word', $data);
+        $response = $this->postJson($this->endpoint, $data);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors(['word']);
@@ -61,7 +67,7 @@ class WordApiTest extends TestCase
         $data = [
             'word' => 'example'
         ];
-        $response = $this->postJson('/api/v1/word', $data);
+        $response = $this->postJson($this->endpoint, $data);
         $response->assertStatus(401);
     }
 
@@ -76,8 +82,7 @@ class WordApiTest extends TestCase
                 'word' => $existingWord->word
             ];
 
-            $response = $this->postJson('/api/v1/word', $data);
-
+            $response = $this->postJson($this->endpoint, $data);
             $response->assertStatus(status: 409)
                      ->assertJson([
                          'success' => false,
