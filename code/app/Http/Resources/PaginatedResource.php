@@ -22,6 +22,33 @@ class PaginatedResource extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
+     * @OA\Schema(
+     *     schema="PaginatedResource",
+     *     type="object",
+     *     @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(
+     *             type="object"
+     *         )
+     *     ),
+     *     @OA\Property(
+     *         property="meta",
+     *         type="object",
+     *         @OA\Property(property="current_page", type="integer"),
+     *         @OA\Property(property="first_page_url", type="string"),
+     *         @OA\Property(property="from", type="integer"),
+     *         @OA\Property(property="last_page", type="integer"),
+     *         @OA\Property(property="last_page_url", type="string"),
+     *         @OA\Property(property="next_page_url", type="string"),
+     *         @OA\Property(property="path", type="string"),
+     *         @OA\Property(property="per_page", type="integer"),
+     *         @OA\Property(property="prev_page_url", type="string"),
+     *         @OA\Property(property="to", type="integer"),
+     *         @OA\Property(property="total", type="integer")
+     *     )
+     * )
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
