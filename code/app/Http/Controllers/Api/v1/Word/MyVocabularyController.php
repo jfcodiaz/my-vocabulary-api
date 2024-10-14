@@ -17,7 +17,7 @@ class MyVocabularyController extends Controller
         $userWords = $userWordRepository->getUserWordsForUserIdWithPagination(
             perPage: config('app.pagination.default_limit'),
             userId: $user->id,
-            page: $request->query('page')
+            page: (int) ($request->query('page') ?? 1)
         );
 
         return response()->json(new PaginatedResource($userWords, WordUserResource::class, $user));

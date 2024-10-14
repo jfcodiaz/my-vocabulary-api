@@ -17,7 +17,6 @@ class WordUserResource extends JsonResource
 
         return [
             'word' => new WordResource($this->word),
-            'user_id' => $this->user_id,
             'mine' => $this->word->creator_id === $user->id,
             'created_at' => $this->created_at,
         ];

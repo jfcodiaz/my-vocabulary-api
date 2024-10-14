@@ -14,8 +14,8 @@ class PaginatedResource extends ResourceCollection
      */
     public function __construct(
         public $resource,
-        public $collects)
-    {
+        public $collects
+    ) {
         parent::__construct($this->resource);
     }
 
@@ -31,7 +31,7 @@ class PaginatedResource extends ResourceCollection
             'data' => $this->collection->transform(function ($item) use ($request) {
                 return new $this->collects($item);
             }),
-            'meta'=> [
+            'meta' => [
                 'current_page' => $this->currentPage(),
                 'first_page_url' => $this->url(1),
                 'from' => $this->firstItem(),
