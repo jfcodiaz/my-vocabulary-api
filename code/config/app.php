@@ -129,5 +129,8 @@ return [
             'defaultAdmin' => env('DEFAULT_ADMIN', 'admin@serv.com'),
             'defaultUser' => env('DEFAULT_USER', 'user@serv.com'),
         ],
-    ]
+    ],
+    'pagination' => [
+        'default_limit' => env('PAGINATION_LIMIT', 10),
+    ],
 ];

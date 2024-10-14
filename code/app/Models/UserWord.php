@@ -14,4 +14,9 @@ class UserWord extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function word()
+    {
+        return $this->belongsTo(Word::class, 'word_id', 'id');
+    }
 }

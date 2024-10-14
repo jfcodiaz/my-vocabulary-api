@@ -37,5 +37,15 @@ class UserWordSeeder extends Seeder
                 ]);
             }
         }
+
+        foreach ($users as $user) {
+            for ($i = 0; $i < random_int(1, 5); $i++) {
+                $word = Word::where('creator_id', '!=', $user->id)->inRandomOrder()->first();
+                UserWord::create([
+                    'user_id' => $user->id,
+                    'word_id' => $word->id,
+                ]);
+            }
+        }
     }
 }
