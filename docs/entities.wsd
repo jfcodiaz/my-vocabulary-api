@@ -1,14 +1,5 @@
  @startuml Entities
 
-    class User {
-        +bigint id
-        +String name
-        +String email
-        +timestamp email_verified_at
-        +String password
-        +String remember_token
-    }
-
     class UserWord {
         +bigint id
         +bigint user_id
@@ -16,17 +7,36 @@
         +tinyint proficiency_level
     }
 
-    class Word {
-        +bigint id
-        +String word
-    }
-
     class Definition {
         +bigint id
         +bigint word_id
         +bigint word_type_id
         +bigint verb_base_id
+        +bigint creator_id
         +String definition
+    }
+
+    class Word {
+        +bigint id
+        +bigint creator_id
+        +String word
+    }
+
+    class WordMedia {
+        +bigint id
+        +bigint word_id
+        +bigint media_id
+        +bigint creator_id
+        +String type
+    }
+
+    class User {
+        +bigint id
+        +String name
+        +String email
+        +timestamp email_verified_at
+        +String password
+        +String remember_token
     }
 
     class Review {
@@ -53,12 +63,7 @@
         +String url
     }
 
-    class WordMedia {
-        +bigint id
-        +bigint word_id
-        +bigint media_id
-        +String type
-    }
+
 
     class Role {
         +bigint id
@@ -72,19 +77,28 @@
         +String description
     }
 
-    note "All models have \ncreated_at and updated_at \nattributes " as N1
-    Word "1" --> "0..*" Review : has
-    Word "1" -- "0..*" Text : texts (is in many)
-    User "1" --> "0..*" Text : has
-    Text "*" --> "1" TextType : type
-    User "1" --> "0..*" UserWord : has
-    Word "1" <-- "0..*" UserWord : has
-    UserWord "1" -- "0..*" Review : has
-    Word "1" --> "1..*" Definition :  havedefinitions
-    WordType "1" -- "1..*" Definition : type
-    WordMedia "1" -- "0..*" Media : has
-    Definition "1" -- "0..*" WordMedia : has
-    User "1" -- "0..*" Role : has
-    Definition "1" --> "1..1" Word : verb base\n(if is verb)
+    class WordTypeExample {
+        +bigint id
+        +bigint word_type_id
+        +String example
+    }
 
+    note "<b>All models</b> \nhave created_at and \nupdated_at attributes " as N1
+
+    WordType "1" --> "0..*" WordTypeExample : has
+    User "1" <-- "0..*" Text : has a creator
+    Text "*" -right-> "1" TextType : type
+    User "1" --> "0..*" UserWord : has
+    UserWord "1" -down-> "0..*" Review : has
+    Word "1" --> "1..*" Definition :  has definitions
+    Word "1" -- "0..*" Text : texts (is in many)
+    Word "1" <-left- "0..*" UserWord : has
+    WordType "1" -left- "1..*" Definition : type
+    WordMedia "1" -- "0..*" Media : has
+    WordMedia "*" -left-> "1" User : has a creator
+    Definition "1" -up-> "0..*" WordMedia : has
+    User "1" -left-> "1..*" Role : has
+    Definition "1" --> "1..1" Word : verb base\n(if is verb)
+    Definition "1" --> "1" User : has as creator
+    Word "*" <-up- "1" User: has a creator
 @enduml

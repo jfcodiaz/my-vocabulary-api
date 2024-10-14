@@ -1,8 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -133,29 +132,15 @@ return new class extends Migration
                 'He will have been running for an hour.',
                 'We will have been watching TV.',
                 'They will have been playing football.',
-            ],
-            'Can' => [
-                'I can swim.',
-                'She can cook.',
-                'He can play the guitar.',
-                'They can speak French.',
-                'We can go out tonight.',
-            ],
-            'Could' => [
-                'I could swim when I was a kid.',
-                'He could play football.',
-                'She could cook very well.',
-                'We could go to the park.',
-                'They could solve the problem.',
-            ],
+            ]
         ];
 
         foreach ($conjugationTypes as $type => $examples) {
-            $conjugationTypeId = DB::table('conjugation_types')->where('name', $type)->value('id');
+            $conjugationTypeId = DB::table('word_types')->where('name', $type)->value('id');
             foreach ($examples as $example) {
-                DB::table('conjugation_type_examples')->insert([
-                    'conjugation_type_id' => $conjugationTypeId,
-                    'example_sentence' => $example,
+                DB::table('word_type_examples')->insert([
+                    'word_type_id' => $conjugationTypeId,
+                    'example' => $example,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
