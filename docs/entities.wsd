@@ -1,127 +1,90 @@
-@startuml Entities
+ @startuml Entities
 
-class WordType {
-    +bigint id
-    +String name
-    +String description
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class User {
+        +bigint id
+        +String name
+        +String email
+        +timestamp email_verified_at
+        +String password
+        +String remember_token
+    }
 
-class User {
-    +bigint id
-    +String name
-    +String email
-    +timestamp email_verified_at
-    +String password
-    +String remember_token
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class UserWord {
+        +bigint id
+        +bigint user_id
+        +bigint word_id
+        +tinyint proficiency_level
+    }
 
-class UserWord {
-    +bigint id
-    +bigint user_id
-    +bigint word_id
-    +tinyint proficiency_level
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class Word {
+        +bigint id
+        +String word
+    }
 
-class Word {
-    +bigint id
-    +String word
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class Definition {
+        +bigint id
+        +bigint word_id
+        +bigint word_type_id
+        +bigint verb_base_id
+        +String definition
+    }
 
-class Definition {
-    +bigint id
-    +bigint word_id
-    +bigint word_type_id
-    +String definition
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class Review {
+        +bigint id
+        +boolean passed
+        +date review_date
+    }
 
-class Review {
-    +bigint id
-    +bigint user_id
-    +bigint word_id
-    +date review_date
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class Text {
+        +bigint id
+        +bigint user_id
+        +text content
+        +String title
+    }
 
-class Text {
-    +bigint id
-    +bigint user_id
-    +text content
-    +String title
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class TextType {
+        +bigint id
+        +String name
+    }
 
-class TextType {
-    +bigint id
-    +String name
-}
+    class Media {
+        +bigint id
+        +bigint user_id
+        +String url
+    }
 
-class ConjugationVerb {
-    +bigint id
-    +bigint word_id
-    +bigint conjugation_type_id
-    +String conjugation
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class WordMedia {
+        +bigint id
+        +bigint word_id
+        +bigint media_id
+        +String type
+    }
 
-class ConjugationType {
-    +bigint id
-    +String name
-    +String description
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class Role {
+        +bigint id
+        +String name
+        +String description
+    }
 
-class Media {
-    +bigint id
-    +bigint user_id
-    +String url
-    +timestamp created_at
-    +timestamp updated_at
-}
+    class WordType {
+        +bigint id
+        +String name
+        +String description
+    }
 
-class WordMedia {
-    +bigint id
-    +bigint word_id
-    +bigint media_id
-    +String type
-    +timestamp created_at
-    +timestamp updated_at
-}
-
-class Role {
-    +bigint id
-    +String name
-    +String description
-    +timestamp created_at
-    +timestamp updated_at
-}
-
-Word "1" -- "0..*" Review : has
-Word "1" -- "0..*" Text : texts (is in many)
-User "1" -- "0..*" Text : writes
-Text "1" -- "0..*" TextType : type
-User "1" -- "0..*" UserWord : has
-Word "1" -- "0..*" UserWord : has
-Word "1" -- "0..*" ConjugationVerb : has
-ConjugationVerb "1" -- "1" ConjugationType : type
-User "1" -- "0..*" Review : has
-Word "1" -- "1..*" Definition : definitions
-WordType "1" -- "1..*" Definition : type
-WordMedia "1" -- "0..*" Media : has
-Word "1" -- "0..*" WordMedia : has
-User "1" -- "0..*" Role : has
+    note "All models have \ncreated_at and updated_at \nattributes " as N1
+    Word "1" --> "0..*" Review : has
+    Word "1" -- "0..*" Text : texts (is in many)
+    User "1" --> "0..*" Text : has
+    Text "*" --> "1" TextType : type
+    User "1" --> "0..*" UserWord : has
+    Word "1" <-- "0..*" UserWord : has
+    UserWord "1" -- "0..*" Review : has
+    Word "1" --> "1..*" Definition :  havedefinitions
+    WordType "1" -- "1..*" Definition : type
+    WordMedia "1" -- "0..*" Media : has
+    Definition "1" -- "0..*" WordMedia : has
+    User "1" -- "0..*" Role : has
+    Definition "1" --> "1..1" Word : verb base\n(if is verb)
 
 @enduml
