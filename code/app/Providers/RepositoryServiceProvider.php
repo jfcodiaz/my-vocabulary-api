@@ -1,9 +1,16 @@
 <?php
 namespace App\Providers;
 
-use App\Repositories\WordRepository;
+
+use App\Repositories\{
+    WordRepository,
+    UserWordRepository,
+};
+use App\Contracts\Repositories\{
+    IWordRepository,
+    IUserWordRepository,
+};
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\Repositories\IWordRepository;
 
 /**
  * Provides repository bindings for the application.
@@ -21,8 +28,13 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            IWordRepository::class,
-            WordRepository::class
+            abstract: IWordRepository::class,
+            concrete: WordRepository::class
+        );
+
+        $this->app->bind(
+            abstract: IUserWordRepository::class,
+            concrete: UserWordRepository::class
         );
     }
 
@@ -34,7 +46,10 @@ class RepositoryServiceProvider extends ServiceProvider
     */
     public function provides(): array
     {
-        return [IWordRepository::class];
+        return [
+            IWordRepository::class,
+            IUserWordRepository::class
+        ];
     }
 
     /**
