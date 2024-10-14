@@ -35,7 +35,6 @@ class MyVocabularyControllerTest extends TestCase
         $response = $this->getJson(route('api.v1.my-vocabulary', ['page' => 2]));
 
         $meta = $response->json('meta');
-        ;
         $basePath = $response->baseRequest->fullUrlWithoutQuery(['page']);
 
         $this->assertEquals("$cofiguredUrl/api/v1/my-vocabulary", $basePath);
