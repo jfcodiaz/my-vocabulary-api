@@ -55,7 +55,7 @@ class PaginatedResource extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection->transform(function ($item) use ($request) {
+            'data' => $this->collection->transform(function ($item): object {
                 return new $this->collects($item);
             }),
             'meta' => [
