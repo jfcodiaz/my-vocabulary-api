@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Migrations\Migration;
 
 class PopulateWordTypes extends Migration
 {
@@ -15,9 +13,8 @@ class PopulateWordTypes extends Migration
      */
     public function up()
     {
-        $now = Carbon::now();  // Crear la variable $now que contiene la fecha y hora actual
+        $now = Carbon::now();
 
-        // Array con los tipos de palabras y sus descripciones
         $wordTypes = [
             ['name' => 'Noun', 'description' => 'A word that identifies a person, place, thing, or idea.', 'created_at' => $now, 'updated_at' => $now],
             ['name' => 'Verb', 'description' => 'A word that expresses an action, occurrence, or state of being.', 'created_at' => $now, 'updated_at' => $now],
@@ -32,7 +29,6 @@ class PopulateWordTypes extends Migration
             ['name' => 'Quantifier', 'description' => 'A word or phrase that indicates quantity or amount, often used with nouns (e.g., \'many,\' \'few,\' \'several\').', 'created_at' => $now, 'updated_at' => $now]
         ];
 
-        // Insertar los tipos de palabras en la tabla word_types
         DB::table('word_types')->insert($wordTypes);
     }
 
@@ -43,7 +39,6 @@ class PopulateWordTypes extends Migration
      */
     public function down()
     {
-        // Eliminar los tipos de palabras al hacer rollback
         DB::table('word_types')->whereIn('name', [
             'Noun', 'Verb', 'Adjective', 'Adverb', 'Pronoun', 'Preposition',
             'Conjunction', 'Interjection', 'Determiner', 'Modal Verb', 'Quantifier'
