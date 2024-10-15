@@ -1,15 +1,20 @@
 <?php
 namespace App\Providers;
 
-
 use App\Repositories\{
     WordRepository,
     UserWordRepository,
+    WordTypeRepository,
+    DefinitionRepository,
 };
+
 use App\Contracts\Repositories\{
     IWordRepository,
     IUserWordRepository,
+    IWordTypeRepository,
+    IDefintionRepository,
 };
+
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -36,6 +41,16 @@ class RepositoryServiceProvider extends ServiceProvider
             abstract: IUserWordRepository::class,
             concrete: UserWordRepository::class
         );
+
+        $this->app->bind(
+            abstract: IWordTypeRepository::class,
+            concrete: WordTypeRepository::class
+        );
+
+        $this->app->bind(
+            abstract: IDefintionRepository::class,
+            concrete: DefinitionRepository::class
+        );
     }
 
     /**
@@ -48,7 +63,9 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         return [
             IWordRepository::class,
-            IUserWordRepository::class
+            IUserWordRepository::class,
+            IWordTypeRepository::class,
+            IDefintionRepository::class,
         ];
     }
 
