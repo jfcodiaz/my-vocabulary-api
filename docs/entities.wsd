@@ -16,6 +16,12 @@
         +String definition
     }
 
+    class DefinitionExample {
+        +bigint id
+        +bigint definition_id
+        +String example
+    }
+
     class Word {
         +bigint id
         +bigint creator_id
@@ -101,4 +107,5 @@
     Definition "1" --> "1..1" Word : verb base\n(if is verb)
     Definition "1" --> "1" User : has as creator
     Word "*" <-up- "1" User: has a creator
+    Definition "1" -down-> "0..*" DefinitionExample : has
 @enduml

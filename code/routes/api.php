@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Api\v1\Word\{ CreateWordController, DeleteWordController, MyVocabularyController, UpdateWordController };
+use App\Http\Controllers\Api\v1\Definitions\DefinitionStoreController;
 use App\Http\Controllers\Api\v1\{ ConjugationTypeController, UserController, WordTypeController };
+use App\Http\Controllers\Api\v1\Word\{ CreateWordController, DeleteWordController, MyVocabularyController, UpdateWordController };
 
 Route::middleware(['auth:sanctum'])->get(
     '/user',
@@ -29,6 +30,6 @@ Route::group(
         Route::delete('/word/{word}', DeleteWordController::class)->name('api.v1.word.delete');
         Route::put('/word/{word}', UpdateWordController::class)->name('api.v1.word.update');
         Route::get('/my-vocabulary', MyVocabularyController::class)->name('api.v1.my-vocabulary');
-
+        Route::post('/definitions', DefinitionStoreController::class)->name('api.v1.definiions.store');
     }
 );

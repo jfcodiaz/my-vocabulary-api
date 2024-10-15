@@ -17,9 +17,10 @@ class CreateDefinitionsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('word_id')->unsigned();
             $table->text('definition');
-            $table->timestamps();
-
+            $table->bigInteger('creator_id')->unsigned();
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('word_id')->references('id')->on('words')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
