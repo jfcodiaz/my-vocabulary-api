@@ -42,20 +42,14 @@ class RequiredIfWordIsVerb implements ValidationRule, DataAwareRule
 
         if (!$wordType->conjugation && !is_null($value)) {
             $fail("The $attribute field must be null when the wordType is not a conjugation.");
-            return;
         }
 
-        if (!$wordType->conjugation) {
-            return;
-        }
-
-        if ($value == null) {
-            $fail("The $attribute field is required if thew wordType is a conjugation.");
-            return;
-        }
-
-        if (!($this->isVerb)($this->data[$attribute])) {
-            $fail("The verbBaseId field should be a a verb.");
+        if ($wordType->conjugation) {
+            if ($value == null) {
+                $fail("The $attribute field is required if thew wordType is a conjugation.");
+            } elseif (!($this->isVerb)($this->data[$attribute])) {
+                $fail("The verbBaseId field should be a a verb.");
+            }
         }
     }
 

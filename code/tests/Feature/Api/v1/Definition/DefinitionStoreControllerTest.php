@@ -1,13 +1,10 @@
 <?php
 namespace Tests\Feature\Api\v1\Definition;
 
-use App\Contracts\Repositories\IDefintionRepository;
-use App\Contracts\Repositories\IWordTypeRepository;
 use Tests\TestCase;
-use App\Models\User;
+use App\Models\{ User, Word, WordType };
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\Word;
-use App\Models\WordType;
+use App\Contracts\Repositories\{ IDefintionRepository, IWordTypeRepository };
 
 class DefinitionStoreControllerTest extends TestCase
 {
@@ -38,7 +35,7 @@ class DefinitionStoreControllerTest extends TestCase
     {
         $data = [
             'wordId' => $this->noun->id,
-            'definition' => 'A person, place, thing, or idea.',
+            'definition' => $this->faker->sentence,
             'wordTypeId' => $this->nounType->id,
         ];
         $response = $this->postJson(route('api.v1.definitions.store'), $data);
@@ -94,7 +91,7 @@ class DefinitionStoreControllerTest extends TestCase
     {
         $data = [
             'wordId' => 999,
-            'definition' => 'A person, place, thing, or idea.',
+            'definition' => $this->faker->sentence,
             'wordTypeId' => 888,
             'verbBaseId' => 777,
         ];
@@ -114,7 +111,7 @@ class DefinitionStoreControllerTest extends TestCase
     {
         $data = [
             'wordId' => $this->noun->id,
-            'definition' => 'A person, place, thing, or idea.',
+            'definition' => $this->faker->sentence,
             'wordTypeId' => $this->nounType->id,
             'verbBaseId' => $this->verb->id,
         ];
@@ -153,7 +150,7 @@ class DefinitionStoreControllerTest extends TestCase
         $word = Word::factory()->create();
         $data = [
             'wordId' => $word->id,
-            'definition' => 'A person, place, thing, or idea.',
+            'definition' => $this->faker->sentence,
             'wordTypeId' => $this->conjugationType->id,
             'verbBaseId' => $this->noun->id,
         ];
@@ -170,7 +167,7 @@ class DefinitionStoreControllerTest extends TestCase
     private function createDefinitionForVerb()
     {
         $defintionRepository = app()->make(IDefintionRepository::class);
-        $definition = $defintionRepository->create([
+        $defintionRepository->create([
             'word_id' => $this->verb->id,
             'word_type_id' => $this->conjugationType->id,
             'definition' => 'To perform an action or process.',
