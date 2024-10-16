@@ -8,6 +8,43 @@ class DefinitionResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
+    * @OA\Schema(
+    *     schema="DefinitionResource",
+    *     type="object",
+    *     title="DefinitionResource",
+    *     description="Definition resource representation",
+    *     @OA\Property(
+    *         property="id",
+    *         type="integer",
+    *         description="ID of the definition"
+    *     ),
+    *     @OA\Property(
+    *         property="wordId",
+    *         type="integer",
+    *         description="ID of the word"
+    *     ),
+    *     @OA\Property(
+    *         property="wordTypeId",
+    *         type="integer",
+    *         description="ID of the word type"
+    *     ),
+    *     @OA\Property(
+    *         property="definition",
+    *         type="string",
+    *         description="The definition text"
+    *     ),
+    *     @OA\Property(
+    *         property="creatorId",
+    *         type="integer",
+    *         description="ID of the creator"
+    *     ),
+    *     @OA\Property(
+    *         property="creator",
+    *         ref="#/components/schemas/User",
+    *         description="Creator of the definition"
+    *     )
+    * )
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
