@@ -16,4 +16,14 @@ class WordTypeRepository extends BaseRepository implements IWordTypeRepository
     {
         return $this->model->where('name', 'Verb')->first();
     }
+
+    public function getNounType(): ?WordType
+    {
+        return $this->model->where('name', 'Noun')->first();
+    }
+
+    public function findRandomConjugation(): ?WordType
+    {
+        return $this->model->where('conjugation', true)->inRandomOrder()->first();
+    }
 }

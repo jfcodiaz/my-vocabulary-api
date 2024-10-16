@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Resources\Api\v1\Controllers\Definitions;
 
+use App\Http\Resources\Api\v1\Models\DefinitionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CreateDefinitionSuccessfullyResource extends JsonResource
@@ -15,7 +16,7 @@ class CreateDefinitionSuccessfullyResource extends JsonResource
             'success' => true,
             'message' => 'Definition created successfully',
             'data' => [
-                'definition' => $this->resource
+                'definition' => new DefinitionResource($this->resource)
             ],
         ];
     }

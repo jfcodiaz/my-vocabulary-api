@@ -25,24 +25,31 @@ class RequiredIfWordIsVerb implements ValidationRule, DataAwareRule
     public function __construct(
         private IWordTypeRepository $wordTypesRepository,
         private IsVerbService $isVerb
-    ){
+    ) {
     }
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (!isset($this->data['wordTypeId'])) {
+            return;
+        }
 
         $wordType = $this->wordTypesRepository->findById($this->data['wordTypeId']);
 
-        if(!$wordType->conjugation && $value != null){
-            $fail("The $attribute field should be null if the wordType is not a conjugation.");
+        if (is_null($wordType)) {
             return;
         }
 
-        if(!$wordType->conjugation) {
+        if (!$wordType->conjugation && !is_null($value)) {
+            $fail("The $attribute field must be null when the wordType is not a conjugation.");
             return;
         }
 
-        if($value == null){
+        if (!$wordType->conjugation) {
+            return;
+        }
+
+        if ($value == null) {
             $fail("The $attribute field is required if thew wordType is a conjugation.");
             return;
         }

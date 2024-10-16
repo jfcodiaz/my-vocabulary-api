@@ -10,6 +10,8 @@ class CreateDefinitionService
     public function __invoke(
         CreateDefinitionDTO $defintion,
     ): Definition {
-        return Definition::create($defintion->toArray());
+        $definition = Definition::create($defintion->toArray());
+        $definition->load('creator');
+        return $definition;
     }
 }

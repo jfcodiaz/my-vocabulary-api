@@ -12,7 +12,7 @@ class CreateDefinitionRequest extends FormRequest
     public function __construct(
         private IWordTypeRepository $wordTypeRepository,
         private IsVerbService $isVerb
-    ){
+    ) {
         parent::__construct();
     }
 
@@ -38,7 +38,8 @@ class CreateDefinitionRequest extends FormRequest
             'wordTypeId' => 'required|integer|exists:word_types,id',
             'definition' => 'required|string',
             'verbBaseId' => [
-                new RequiredIfWordIsVerb(
+                'exists:word_types,id',
+                 new RequiredIfWordIsVerb(
                     isVerb: $this->isVerb,
                     wordTypesRepository: $this->wordTypeRepository
                 )
