@@ -21,7 +21,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *         description="The word itself"
  *     ),
  *     @OA\Property(
- *         property="creator_id",
+ *         property="creatorId",
  *         type="integer",
  *         description="ID of the creator"
  *     ),

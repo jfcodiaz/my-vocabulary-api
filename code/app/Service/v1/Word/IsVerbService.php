@@ -19,19 +19,19 @@ class IsVerbService
      * @param string $word
      * @return bool
      */
-    public function __invoke(Word|int  $word): bool
+    public function __invoke(Word|int $word): bool
     {
-        if(is_numeric($word)){
+        if (is_numeric($word)) {
             $word = $this->wordRepository->findById($word);
         }
 
-        if($word == null){
+        if ($word == null) {
             return false;
         }
 
         $wordType = $this->wordTypeRepository->getVerbType();
         $hasDefinitionAsVerb = $this->defintionRepository->findByTypeForWord($word, $wordType);
 
-        return$hasDefinitionAsVerb != null;
+        return $hasDefinitionAsVerb != null;
     }
 }
