@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Listen for Xdebug (PHPUnit Tests)",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "env": {
+                "XDEBUG_TRIGGER": "1"
+            },
+            "pathMappings": {
+                "/app": "${workspaceFolder}/code"
+            },
+        }
+    ]
+}

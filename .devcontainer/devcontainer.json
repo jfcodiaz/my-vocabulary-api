@@ -1,0 +1,20 @@
+{
+    "name": "My Vocabulary API",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "php",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+        },
+        "vscode": {
+            "extensions": [
+                "ms-php.vscode-php-pack",
+                "emallin.phpunit",
+                "DEVSENSE.phptools-vscode",
+                "recca0120.vscode-phpunit"
+            ]
+        }
+    },
+    "shutdownAction": "none"
+}

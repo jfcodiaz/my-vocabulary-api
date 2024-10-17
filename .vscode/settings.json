@@ -14,8 +14,7 @@
             "database": "mysql"
         }
     ],
-    "phpSniffer.run": "onSave",
-    "phpSniffer.autoDetect": true,
-    "phpSniffer.standard": "${workspaceFolder}/code/phpcs.xml.dist",
-
+    "phpunit.phpunit": "/app/code/vendor/bin/phpunit",
+    "phpunit.args": ["--configuration", "/app/code/phpunit.xml.dist", "--testdox"],
+    "php.validate.executablePath": "/usr/local/bin"
 }

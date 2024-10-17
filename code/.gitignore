@@ -11,6 +11,7 @@
 .phpactor.json
 .phpunit.result.cache
 .phpcs-cache
+.phpunit.xml
 Homestead.json
 Homestead.yaml
 auth.json

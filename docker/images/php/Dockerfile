@@ -45,11 +45,8 @@ RUN \
     # Install PHPUnit
     && composer global require phpunit/phpunit \
     # Install Xdebug
-    && pecl install xdebug && docker-php-ext-enable xdebug \
-    #
-    # Configure Xdebug for coverage in the php.ini file
-    && echo "xdebug.mode = coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.start_with_request = no" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    && pecl install xdebug && docker-php-ext-enable xdebug
+# Instala las extensiones de VSCode
 
 FROM base AS prod
 USER user
